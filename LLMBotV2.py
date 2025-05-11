@@ -7,7 +7,6 @@ config = ConfigParser()
 config.read("config.cfg")
 base_url = config.get('setup', 'base_url')
 api_token = config.get('setup', 'api_token')
-model = config.get('setup', 'model_path')
 
 client = OpenAI(base_url=base_url, api_key="not_needed")
 
@@ -133,7 +132,7 @@ def go_back(message: telebot.types.Message):
 def chatting(message: telebot.types.Message):
     user = get_user(message.from_user.id)
     response = client.chat.completions.create(
-        model=model,
+        model="",
         messages=user.prepare_prompt(message.text),
         stream=True
     )
